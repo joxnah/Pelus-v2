@@ -127,37 +127,25 @@ h1 { font-size: 68px; font-weight: normal; line-height: 1; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-}
-.cozy-toggle {
-  padding: 10px 14px;
+  gap: 4px;
+  padding: 8px;
+  background: #fff;
   border: 2px solid #111827;
-  background: #8de7f2;
-  color: #111827;
-  font-weight: bold;
 }
-.cozy-toggle:hover { background: #f2a3cf; }
-.cozy-player audio { display: none; }
+.cozy-player h3 { margin: 0; font-size: 14px; }
+.cozy-player audio { display: block; width: 250px; height: 40px; }
 .cozy-fire {
   width: 140px;
-  height: 0;
+  height: 140px;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(12px) scale(.9);
-  transition: height .45s ease, opacity .45s ease, transform .45s ease;
 }
 .cozy-fire img {
   display: block;
   width: 140px;
   height: 140px;
   image-rendering: pixelated;
+  animation: campfire-glow 1.5s ease-in-out infinite alternate;
 }
-.cozy-player.is-playing .cozy-fire {
-  height: 140px;
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.cozy-player.is-playing .cozy-fire img { animation: campfire-glow 1.5s ease-in-out infinite alternate; }
 @keyframes campfire-glow {
   from { filter: drop-shadow(0 0 4px #ff702a); }
   to { filter: drop-shadow(0 0 14px #ffc15a); }
