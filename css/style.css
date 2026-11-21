@@ -11,7 +11,7 @@ h1, h2, h3, p { margin: 0 0 12px; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 
-.site-wrapper { max-width: 1500px; margin: auto; padding: 20px; }
+.site-wrapper { position: relative; z-index: 1; max-width: 1500px; margin: auto; padding: 20px; }
 .site-header, .site-footer, .game-info, .logo, .support-mascot {
   display: flex; align-items: center;
   gap: 20px;
@@ -25,7 +25,6 @@ button { cursor: pointer; }
 .logo .pixel-icon {
   width: 56px; height: 60px;
   padding: 4px; background: black;
-  border-radius: 50%;
 }
 .meniu { margin-left: auto; }
 .meniu ul {
@@ -48,9 +47,8 @@ button { cursor: pointer; }
   padding: 12px 18px; margin-top: 20px;
   color: #111827; font-size: 22px;
 }
-.intro-actions .pink-button:last-child { background: #8de7f2; }
-.pixel-shadow { box-shadow: 5px 5px #111827; }
-
+a:hover, button:hover { color: #600098; }
+.pink-button:hover, .icon-button:hover { background: #8de7f2; }
 .hero-grid, .about-layout, .support-columns {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px; margin-bottom: 24px;
@@ -75,7 +73,18 @@ h1 { font-size: 68px; font-weight: normal; line-height: 1; }
   width: max-content; max-width: 100%;
 }
 .mascot { position: absolute; right: -20px; bottom: 20px; }
-.mascot img { image-rendering: pixelated; width: 400px; margin: 0; }
+/* Animația mascotei Andreea */
+.mascot img {
+  image-rendering: pixelated;
+  width: 400px;
+  margin: 0;
+  animation: andreea-bob 2s steps(4, end) infinite;
+}
+@keyframes andreea-bob {
+  0%, 100% { transform: translateY(0); }
+  25%, 75% { transform: translateY(-1px); }
+  50% { transform: translateY(-2px); }
+}
 .mascot figcaption {
   position: relative; z-index: 1;
   margin-top: -55px; left: -55px;
@@ -111,12 +120,23 @@ h1 { font-size: 68px; font-weight: normal; line-height: 1; }
 .site-footer p { margin: 0; }
 
 .page-title { padding: 20px 0; }
+.page-title::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 4px;
+  margin-bottom: 10px;
+  background: #00bcd4;
+}
+.dropcap::first-letter { font-size: 1.5em; font-weight: bold; }
+.intro-panel .dropcap::first-letter { color: #8de7f2; }
+.secondary-page .dropcap::first-letter { color: #00bcd4; }
 .content-panel, .info-panel { padding: 24px; margin-bottom: 24px; }
 .content-panel h2 { font-size: 36px; font-weight: normal; }
 .content-panel p, .content-panel li, .info-panel p { font-size: 16px; line-height: 1.6; }
 .content-panel h3 { margin-top: 20px; }
 figure { margin: 0; }
-figcaption, caption, .small-note { margin-top: 10px; color: #405272; }
+figcaption, .small-note { margin-top: 10px; color: #405272; }
 .table-scroll { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; text-align: left; }
 th, td { padding: 12px; border: 2px solid #111827; }
@@ -130,7 +150,12 @@ input, select, textarea {
   padding: 12px; border: 2px solid #111827;
   background: white;
 }
-input:focus, select:focus, textarea:focus { outline: none; }
+input:focus, select:focus, textarea:focus {
+  border-color: #600098;
+  outline: 2px solid #8de7f2;
+  outline-offset: 2px;
+}
+input::placeholder, textarea::placeholder { color: #687487; opacity: 1; }
 textarea { resize: vertical; }
 .simple-form { text-align: left; }
 .info-panel, .form-confirmation { display: none; margin-top: 24px; }
@@ -163,7 +188,6 @@ video { background: black; aspect-ratio: 16 / 9; }
   margin-top: 20px; border: 2px solid #111827;
 }
 .account-button { background: #8de7f2; }
-.account-button:hover, .account-button[aria-current="page"] { box-shadow: none; }
 
 .account-layout {
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -186,38 +210,25 @@ video { background: black; aspect-ratio: 16 / 9; }
 .spiffo-art { width: 300px; margin: 12px auto; image-rendering: pixelated; }
 .spiffo-panel .spiffo-note { margin: 24px 0 0; font-size: 18px; }
 
-:where(a, button, summary):focus-visible {
-  outline: 3px solid #2043ed; outline-offset: 4px;
-}
+::selection { background: #8de7f2; color: #111827; }
 
-@media (min-width: 851px) and (max-width: 1100px) {
-  .site-header { flex-wrap: wrap; }
-  .meniu { order: 3; width: 100%; }
-  .meniu ul { justify-content: center; }
-  .account-button { margin-left: auto; }
+/* snowing */
+body::before {
+  content: "";
+  position: fixed;
+  top: -540px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh + 1080px);
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../PrettyPics/snowfall.png");
+  background-repeat: repeat;
+  background-size: 960px 540px;
+  opacity: 0.75;
+  animation: snow-image-fall 14s linear infinite;
 }
-
-@media (max-width: 850px) {
-  .site-wrapper { padding: 12px; }
-  .site-header { flex-wrap: wrap; }
-  .meniu { order: 3; width: 100%; }
-  .meniu ul { justify-content: space-between; gap: 10px; }
-  .purchase-button { margin-left: auto; }
-  .hero-grid, .game-grid, .about-layout, .support-columns { grid-template-columns: minmax(0, 1fr); }
-  h1 { font-size: 46px; }
-  .intro-panel, .content-panel { padding: 18px; }
-  .logo { font-size: 42px; gap: 10px; }
-  .account-layout { grid-template-columns: minmax(0, 1fr); }
-  .spiffo-panel { padding: 24px; }
-  .spiffo-art { width: 240px; }
-}
-
-@media (max-width: 480px) {
-  .site-header { gap: 12px; padding: 10px 12px; }
-  .account-button, .purchase-button {
-    width: 44px; padding: 0;
-    gap: 0; font-size: 0;
-  }
-  .account-button { margin-left: auto; }
-  .purchase-button { margin-left: 0; }
+@keyframes snow-image-fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(540px); }
 }
